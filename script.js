@@ -13,33 +13,28 @@ document.addEventListener('DOMContentLoaded', () => {
       item.addEventListener('click', () => {
         const img = item.querySelector('img');
         if (img) {
-          // Luăm calea imaginii (src) din cardul pe care s-a apasat click
           const imageSource = img.getAttribute('src');
-          
           if (imageSource) {
             lightboxImg.src = imageSource;
-            lightboxImg.alt = img.alt || 'Imagine marită';
+            lightboxImg.alt = img.alt || 'Imagine mărită';
             lightbox.classList.add('open');
           }
         }
       });
     });
 
-    // Închidere pe butonul X
     if (lightboxClose) {
       lightboxClose.addEventListener('click', () => {
         lightbox.classList.remove('open');
       });
     }
 
-    // Închidere la click în afara imaginii (pe fundalul întunecat)
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) {
         lightbox.classList.remove('open');
       }
     });
 
-    // Închidere când se apasă tasta ESC
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && lightbox.classList.contains('open')) {
         lightbox.classList.remove('open');
@@ -55,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (galTabs.length > 0) {
     galTabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        // Schimbăm clasa activă pe butoane
         galTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
 
@@ -83,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
       navLinks.classList.toggle('open');
     });
 
-    // Închidem meniul mobil când se dă click pe un link
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         navLinks.classList.remove('open');
@@ -101,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
   if (orderModal) {
     orderBtns.forEach(btn => {
       btn.addEventListener('click', (e) => {
-        // Deschidem modalul doar dacă butonul nu este de tip submit simplu
         if (btn.tagName === 'BUTTON' || btn.classList.contains('order-btn')) {
           e.preventDefault();
           orderModal.classList.add('open');
@@ -123,60 +115,71 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 5. REACȚII RECENZII (LIKE / DISLIKE)
+  // 5. SISTEM VOT RECENZII (FUNCȚIONAL PENTRU STRUCTURA TA)
   // ==========================================
   const revCards = document.querySelectorAll('.rev-card');
 
   revCards.forEach((card, index) => {
-    const likeBtn = card.querySelector('.react-btn.like');
-    const dislikeBtn = card.querySelector('.react-btn.dislike');
-    
-    if (likeBtn && dislikeBtn) {
-      // Cheie unică în memoria browserului pentru fiecare card
-      const storageKey = `voted_recenzie_${index}`;
-      const savedVote = localStorage.getItem(storageKey);
+    // Detectăm butoanele indiferent de structura lor internă
+    const likeBtn = card.querySelector('.like, .react-btn.like');
+    const dislikeBtn = card.querySelector('.dislike, .react-btn.dislike');
 
-      // Verificăm dacă utilizatorul a votat deja această recenzie în trecut
-      if (savedVote) {
-        likeBtn.disabled = true;
-        dislikeBtn.disabled = true;
-        
-        if (savedVote === 'like') likeBtn.classList.add('active');
-        if (savedVote === 'dislike') dislikeBtn.classList.add('active');
+    if (!likeBtn || !dislikeBtn) return;
+
+    const storageKey = `voted_recenzie_${index}`;
+    const savedVote = localStorage.getItem(storageKey);
+
+    // Funcție de blocare fără a afecta stilul vizual
+    const lockButtons = (type) => {
+      likeBtn.disabled = true;
+      dislikeBtn.disabled = true;
+      likeBtn.style.pointerEvents = 'none';
+      dislikeBtn.style.pointerEvents = 'none';
+
+      if (type === 'like') likeBtn.classList.add('active');
+      if (type === 'dislike') dislikeBtn.classList.add('active');
+    };
+
+    // Păstrăm votul la refresh
+    if (savedVote) {
+      lockButtons(savedVote);
+    }
+
+    // Procesăm votul la click
+    const processVote = (btn, type) => {
+      if (localStorage.getItem(storageKey)) return;
+
+      // Căutăm orice element text/span din interior pentru a crește numărul
+      const countSpan = btn.querySelector('.count, span') || btn;
+      let currentVal = parseInt(countSpan.textContent.replace(/\D/g, ''), 10) || 0;
+      
+      // Actualizăm numărul cu +1
+      if (countSpan !== btn) {
+        countSpan.textContent = currentVal + 1;
+      } else {
+        countSpan.childNodes.forEach(node => {
+          if (node.nodeType === Node.TEXT_NODE && node.textContent.trim() !== '') {
+            node.textContent = ' ' + (currentVal + 1);
+          }
+        });
       }
 
-      // Event Click pe butonul Like
-      likeBtn.addEventListener('click', () => {
-        if (!likeBtn.disabled) {
-          const countSpan = likeBtn.querySelector('.count');
-          if (countSpan) {
-            countSpan.textContent = parseInt(countSpan.textContent || '0', 10) + 1;
-          }
-          
-          likeBtn.classList.add('active');
-          likeBtn.disabled = true;
-          dislikeBtn.disabled = true;
+      // Salvăm în memorie și blocăm o singură dată
+      localStorage.setItem(storageKey, type);
+      lockButtons(type);
+    };
 
-          localStorage.setItem(storageKey, 'like');
-        }
-      });
+    likeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      processVote(likeBtn, 'like');
+    });
 
-      // Event Click pe butonul Dislike
-      dislikeBtn.addEventListener('click', () => {
-        if (!dislikeBtn.disabled) {
-          const countSpan = dislikeBtn.querySelector('.count');
-          if (countSpan) {
-            countSpan.textContent = parseInt(countSpan.textContent || '0', 10) + 1;
-          }
-          
-          dislikeBtn.classList.add('active');
-          likeBtn.disabled = true;
-          dislikeBtn.disabled = true;
-
-          localStorage.setItem(storageKey, 'dislike');
-        }
-      });
-    }
+    dislikeBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      processVote(dislikeBtn, 'dislike');
+    });
   });
 
 });
