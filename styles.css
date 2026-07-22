@@ -463,45 +463,91 @@ section {
   }
 }
 
-/* Cardul negru cu buline pe margini */
+/* Cardul de meniu mărit cu imagine pe fundal */
 .menu-ticket {
-  background: #211a13;
+  /* Am mărit padding-ul și înălțimea minimă pentru un chenar mai generos */
+  padding: 30px 36px;
+  min-height: 90px;
+  border-radius: 16px;
+  
+  /* Fundalul: imaginea cu faraon + gradient overlay pentru lizibilitate */
+  background-color: #171310;
+  background-image: 
+    linear-gradient(rgba(23, 19, 16, 0.75), rgba(23, 19, 16, 0.75)), 
+    url('faraon-bf.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  
   color: #faf3e3;
-  border-radius: 12px;
-  padding: 22px 28px;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 16px;
-  transition: transform 0.2s, opacity 0.3s;
+  gap: 20px;
+  border: 1px solid rgba(253, 185, 43, 0.2);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* Efect discret la hover */
+.menu-ticket:hover {
+  border-color: rgba(253, 185, 43, 0.5);
+  transform: translateY(-2px);
 }
 
 .menu-ticket.hidden {
   display: none !important;
 }
 
-/* Cercurile/Bulinele laterale din imagine */
+/* Cercurile/Bulinele laterale (mărite puțin proporțional) */
 .menu-ticket::before,
 .menu-ticket::after {
   content: "";
   position: absolute;
-  width: 14px;
-  height: 14px;
-  background: #faf3e3; /* Culoarea fundalului paginii */
+  width: 18px;
+  height: 18px;
+  background: #faf3e3; /* Culoarea fundalului general al site-ului */
   border-radius: 50%;
   top: 50%;
   transform: translateY(-50%);
+  z-index: 2;
 }
 
 .menu-ticket::before {
-  left: -7px;
+  left: -9px;
 }
 
 .menu-ticket::after {
-  right: -7px;
+  right: -9px;
 }
 
+/* Ajustare fonturi în interiorul chenarului mărit */
+.ticket-info h4 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 20px; /* Text puțin mai mare */
+  margin: 0 0 6px 0;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+.ticket-info p {
+  font-size: 14px;
+  color: rgba(250, 243, 227, 0.8);
+  margin: 0;
+  line-height: 1.4;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.ticket-price {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 22px; /* Preț mai vizibil */
+  color: #fdb92b;
+  white-space: nowrap;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+}
 .ticket-info h4 {
   font-family: 'Space Grotesk', sans-serif;
   font-weight: 700;
