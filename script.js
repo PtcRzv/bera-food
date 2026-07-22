@@ -81,7 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const category = tab.getAttribute('data-category');
 
         menuTickets.forEach(ticket => {
-          if (category === 'all' || ticket.classList.contains(category)) {
+          const ticketCategory = ticket.getAttribute('data-category');
+          if (category === 'all' || ticketCategory === category) {
             ticket.classList.remove('hidden');
           } else {
             ticket.classList.add('hidden');
