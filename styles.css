@@ -463,18 +463,17 @@ section {
   }
 }
 
-/* Cardul de meniu mărit cu imagine pe fundal */
+/* Cardul de meniu cu imaginea din spate mai accentuată */
 .menu-ticket {
-  /* Am mărit padding-ul și înălțimea minimă pentru un chenar mai generos */
   padding: 30px 36px;
   min-height: 90px;
   border-radius: 16px;
   
-  /* Fundalul: imaginea cu faraon + gradient overlay pentru lizibilitate */
   background-color: #171310;
+  /* Am redus opacitatea la 0.20 ca să iasă imaginea puternic în evidență */
   background-image: 
-    linear-gradient(rgba(23, 19, 16, 0.75), rgba(23, 19, 16, 0.75)), 
-    url('faraon-bf.png');
+    linear-gradient(rgba(23, 19, 16, 0.20), rgba(23, 19, 16, 0.20)), 
+    url('./faraon-bf.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -485,11 +484,10 @@ section {
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  border: 1px solid rgba(253, 185, 43, 0.2);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(253, 185, 43, 0.4);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
-
 /* Efect discret la hover */
 .menu-ticket:hover {
   border-color: rgba(253, 185, 43, 0.5);
