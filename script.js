@@ -11,22 +11,26 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------- 1.5. ANIMAȚIE SMOOTH SCROLL (NAVIGARE LINĂ) ---------- */
+  /* ---------- 1.5. ANIMAȚIE SMOOTH SCROLL (DESKTOP + MOBIL) ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
       
-      // Ignorăm link-urile goale
       if (targetId === '#' || !targetId) return;
 
       const targetElement = document.querySelector(targetId);
       if (targetElement) {
         e.preventDefault();
 
-        // Derulare lină și fluidă direct din JS
-        targetElement.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
+        // Calculăm înălțimea header-ului sticky (cca. 70px) pentru offset
+        const headerOffset = 70;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        // Executăm derularea lină calculată în pixeli
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
         });
       }
     });
