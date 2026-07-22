@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bera Food — Shaorma & Fast Food Timișoara</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site">
+    <div class="nav">
+        <div class="logo-mark">
+            <img src="logo.png" alt="Bera Food Logo">
+            <span class="logo-text">Bera Food<span class="dot">.</span></span>
+        </div>
+        <button class="burger" id="burgerBtn" aria-label="Deschide meniul">☰</button>
+        <nav class="links" id="navLinks">
+            <a href="#meniu">Meniu</a>
+            <a href="#galerie">Galerie</a>
+            <a href="#recenzii">Recenzii</a>
+            <a href="#locatii">Locații</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-cta">
+            <button class="order-btn" id="openOrderNav">Comandă</button>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="wrap">
+        <h1>Shaorma adevărată.<br><span class="gold-text">Deschis non-stop.</span></h1>
+        <p class="lead">Bera Food Timișoara — ingrediente proaspete, porții generoase, prețuri corecte. Dine-in, takeaway și livrare fără contact.</p>
+        <div class="hero-ctas">
+            <button class="btn btn-primary" id="openOrderHero">Comandă acum</button>
+        </div>
+    </div>
+</section>
+
+<section id="meniu">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2>Meniul nostru</h2>
+            <p>Descoperă cele mai delicioase preparate.</p>
+        </div>
+        <div class="menu-tabs" id="menuTabs">
+            <button class="tab-btn active" data-cat="shaorma">Shaorma</button>
+            <button class="tab-btn" data-cat="burgeri">Burgeri</button>
+            <button class="tab-btn" data-cat="garnituri">Garnituri</button>
+            <button class="tab-btn" data-cat="bauturi">Băuturi</button>
+        </div>
+        <div class="menu-cat active" data-cat="shaorma">
+            <!-- Shaorma items will be populated here -->
+        </div>
+        <div class="menu-cat" data-cat="burgeri">
+            <!-- Burger items will be populated here -->
+        </div>
+        <div class="menu-cat" data-cat="garnituri">
+            <!-- Garnituri items will be populated here -->
+        </div>
+        <div class="menu-cat" data-cat="bauturi">
+            <!-- Băuturi items will be populated here -->
+        </div>
+    </div>
+</section>
+
+<section id="galerie">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2>Galerie</h2>
+            <p>Imagini cu preparatele noastre delicioase.</p>
+        </div>
+        <div class="gal-tabs" id="galTabs">
+            <button class="tab-btn active" data-gcat="all">Toate</button>
+            <button class="tab-btn" data-gcat="shaorma">Shaorma</button>
+            <button class="tab-btn" data-gcat="burgeri">Burgeri</button>
+        </div>
+        <div class="gallery" id="gallery">
+            <!-- Gallery items will be populated here -->
+        </div>
+    </div>
+</section>
+
+<section id="recenzii">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2>Recenzii</h2>
+            <p>Ce spun clienții noștri.</p>
+        </div>
+        <div class="rev-grid" id="revGrid">
+            <!-- Review items will be populated here -->
+        </div>
+    </div>
+</section>
+
+<section id="locatii">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2>Locații</h2>
+            <p>Unde ne găsești.</p>
+        </div>
+        <div class="loc-grid">
+            <!-- Location items will be populated here -->
+        </div>
+    </div>
+</section>
+
+<footer id="contact">
+    <div class="wrap">
+        <div class="foot-grid">
+            <div>
+                <h5>Despre noi</h5>
+                <p>Bera Food oferă cele mai bune preparate din Timișoara.</p>
+            </div>
+            <div>
+                <h5>Contact</h5>
+                <p>Email: contact@berafood.ro</p>
+                <p>Telefon: 0727 877 457</p>
+            </div>
+            <div>
+                <h5>Urmărește-ne</h5>
+                <p>Facebook | Instagram</p>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <p>&copy; 2023 Bera Food. Toate drepturile rezervate.</p>
+        </div>
+    </div>
+</footer>
+
+<div class="order-modal" id="orderModal">
+    <div class="order-modal-inner">
+        <button class="order-modal-close" id="orderModalClose">×</button>
+        <h3>Comandă</h3>
+        <div class="sub">Alege cum vrei să comanzi</div>
+        <a class="order-option phone" href="tel:0727877457">
+            <div class="icon-wrap"><svg>...</svg></div>
+            <div class="opt-title">Telefon</div>
+            <div class="opt-sub">Sună pentru a comanda</div>
+        </a>
+        <a class="order-option wolt" href="https://wolt.com/en/rou/timisoara/restaurant/bera-food-piata-700-6981dc44c7118e66a6aa3e8d" target="_blank" rel="noopener">
+            <div class="icon-wrap"><svg>...</svg></div>
+            <div class="opt-title">Wolt</div>
+            <div class="opt-sub">Comandă prin Wolt</div>
+        </a>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
