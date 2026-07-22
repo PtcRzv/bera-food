@@ -94,31 +94,158 @@
     </div>
 </section>
 
-<section id="meniu">
-    <div class="wrap">
-        <div class="sec-head">
-            <h2>Meniul nostru</h2>
-            <p>Descoperă cele mai delicioase preparate.</p>
-        </div>
-        <div class="menu-tabs" id="menuTabs">
-            <button class="tab-btn active" data-cat="shaorma">Shaorma</button>
-            <button class="tab-btn" data-cat="burgeri">Burgeri</button>
-            <button class="tab-btn" data-cat="garnituri">Garnituri</button>
-            <button class="tab-btn" data-cat="bauturi">Băuturi</button>
-        </div>
-        <div class="menu-cat active" data-cat="shaorma">
-            <!-- Shaorma items will be populated here -->
-        </div>
-        <div class="menu-cat" data-cat="burgeri">
-            <!-- Burger items will be populated here -->
-        </div>
-        <div class="menu-cat" data-cat="garnituri">
-            <!-- Garnituri items will be populated here -->
-        </div>
-        <div class="menu-cat" data-cat="bauturi">
-            <!-- Băuturi items will be populated here -->
-        </div>
+<section id="menu">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Meniu & Prețuri</span>
+      <h2>CE GĂSEȘTI LA BERA FOOD</h2>
+      <p>Toate preparatele sunt pregătite zilnic cu ingrediente proaspete și sosuri făcute în casă.</p>
     </div>
+
+    <!-- TABS CATEGORII -->
+    <div class="menu-tabs">
+      <button class="tab-btn active" onclick="switchTab('shaorma')">Shaorma & Kebab</button>
+      <button class="tab-btn" onclick="switchTab('farfurie')">La Farfurie</button>
+      <button class="tab-btn" onclick="switchTab('oriental')">Oriental & Salate</button>
+    </div>
+
+    <!-- CATEGORIA 1: SHAORMA & KEBAB -->
+    <div id="cat-shaorma" class="menu-cat active">
+      
+      <!-- CARD SHAORMA -->
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <h3>Shaorma</h3>
+          <p>Servită în lipie proaspătă cu sosuri speciale la alegere</p>
+        </div>
+        <div class="menu-card-items">
+          
+          <div class="menu-item-row">
+            <span class="menu-item-name">PUI</span>
+            <div class="menu-item-prices">
+              <div class="price-variant">
+                <span class="label">Mică</span>
+                <span class="val">25 lei</span>
+                <span class="grams">450g</span>
+              </div>
+              <div class="price-variant">
+                <span class="label">Faraon</span>
+                <span class="val">30 lei</span>
+                <span class="grams">600g</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-item-row">
+            <span class="menu-item-name">CRISPY</span>
+            <div class="menu-item-prices">
+              <div class="price-variant">
+                <span class="label">Faraon</span>
+                <span class="val">32 lei</span>
+                <span class="grams">600g</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- CARD KEBAB -->
+      <div class="menu-card">
+        <div class="menu-card-header">
+          <h3>Kebab</h3>
+          <p>În chiflă sau lipie, cu ingrediente la alegere</p>
+        </div>
+        <div class="menu-card-items">
+          
+          <div class="menu-item-row">
+            <span class="menu-item-name">PUI</span>
+            <div class="menu-item-prices">
+              <div class="price-variant">
+                <span class="label">Faraon</span>
+                <span class="val">27 lei</span>
+                <span class="grams">420g</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-item-row">
+            <span class="menu-item-name">CRISPY</span>
+            <div class="menu-item-prices">
+              <div class="price-variant">
+                <span class="label">Faraon</span>
+                <span class="val">29 lei</span>
+                <span class="grams">420g</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="menu-item-row">
+            <span class="menu-item-name">BURGER PUI</span>
+            <div class="menu-item-prices">
+              <div class="price-variant">
+                <span class="val">25 lei</span>
+                <span class="grams">350g</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CATEGORIA 2: LA FARFURIE -->
+    <div id="cat-farfurie" class="menu-cat">
+      <div class="menu-card" style="grid-column: span 2;">
+        <div class="menu-card-header">
+          <h3>La Farfurie</h3>
+          <p>Porții generoase cu garnitură de cartofi, salată și sosuri</p>
+        </div>
+        <div class="menu-card-items">
+          
+          <div class="menu-item-row">
+            <span class="menu-item-name">PUI</span>
+            <div class="price-variant">
+              <span class="val">32 lei</span>
+              <span class="grams">500g</span>
+            </div>
+          </div>
+
+          <div class="menu-item-row">
+            <span class="menu-item-name">CRISPY</span>
+            <div class="price-variant">
+              <span class="val">33 lei</span>
+              <span class="grams">500g</span>
+            </div>
+          </div>
+
+          <div class="menu-item-row">
+            <span class="menu-item-name">ȘNIȚEL</span>
+            <div class="price-variant">
+              <span class="val">33 lei</span>
+              <span class="grams">500g</span>
+            </div>
+          </div>
+
+          <div class="menu-item-row">
+            <span class="menu-item-name">ARIPIOARE</span>
+            <div class="price-variant">
+              <span class="val">32 lei</span>
+              <span class="grams">500g</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- BANNER LIVRARE -->
+    <div class="combo-note">
+      🔥 Livrare fără contact disponibilă — comandă prin butonul de sus (telefon sau Wolt).
+    </div>
+
+  </div>
 </section>
 
 <section id="galerie">
