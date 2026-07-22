@@ -1,714 +1,152 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bera Food — Shaorma & Fast Food Timișoara</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --charcoal:#171310;
-    --charcoal-2:#211a13;
-    --charcoal-3:#2a2117;
-    --gold:#fdb92b;
-    --gold-deep:#e08a0f;
-    --gold-pale:#ffe9af;
-    --spice:#7a2412;
-    --cream:#faf3e3;
-    --cream-dim:#efe1c4;
-    --ink:#241f19;
-    --ink-soft:#5c5347;
-    --line: rgba(250,243,227,0.14);
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--cream);
-    color:var(--ink);
-    font-family:'Work Sans', sans-serif;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3,.display{
-    font-family:'Bebas Neue', sans-serif;
-    letter-spacing:0.02em;
-    line-height:0.95;
-    margin:0;
-  }
-  .mono{font-family:'Space Mono', monospace;}
-  a{color:inherit; text-decoration:none;}
-  img{max-width:100%; display:block;}
-  button{font-family:inherit;}
-  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
-  .eyebrow{
-    font-family:'Space Mono', monospace;
-    text-transform:uppercase;
-    font-size:12px;
-    letter-spacing:0.18em;
-    color:var(--gold-deep);
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
-  }
-
-  /* ---------- NAV ---------- */
-  header.site{
-    position:sticky; top:0; z-index:100;
-    background:rgba(23,19,16,0.94);
-    backdrop-filter:blur(6px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:10px 24px; max-width:1160px; margin:0 auto; gap:14px;
-  }
-  .logo-mark{display:flex; align-items:center; gap:10px; color:var(--cream);}
-  .logo-mark img{height:44px; width:auto;}
-  .logo-mark .logo-text{font-family:'Bebas Neue'; font-size:22px; letter-spacing:0.03em;}
-  .logo-mark .logo-text .dot{color:var(--gold);}
-  nav.links{display:flex; gap:28px; align-items:center;}
-  nav.links a{
-    color:var(--cream-dim); font-size:14px; font-weight:600; letter-spacing:0.02em;
-    padding:6px 2px; border-bottom:2px solid transparent; transition:border-color .2s, color .2s;
-  }
-  nav.links a:hover, nav.links a:focus-visible{color:var(--gold); border-color:var(--gold);}
-  .nav-cta{display:flex; align-items:center; gap:10px;}
-  .order-btn{
-    background:var(--gold); color:var(--ink); font-weight:700; font-size:14px;
-    padding:10px 18px; border:none; border-radius:100px; display:flex; align-items:center; gap:8px; cursor:pointer;
-    transition:background .2s, transform .2s;
-  }
-  .order-btn:hover{background:var(--gold-pale); transform:translateY(-1px);}
-  .burger{display:none; background:none; border:none; color:var(--cream); font-size:24px; cursor:pointer;}
-  @media (max-width:860px){
-    nav.links{
-      position:fixed; top:64px; left:0; right:0; background:var(--charcoal);
-      flex-direction:column; align-items:flex-start; padding:20px 24px; gap:16px;
-      transform:translateY(-130%); transition:transform .25s ease; border-bottom:1px solid var(--line);
-    }
-    nav.links.open{transform:translateY(0);}
-    .burger{display:block;}
-  }
-
-  /* ---------- HERO ---------- */
-  .hero{
-    background:
-      radial-gradient(ellipse at 15% 20%, rgba(253,185,43,0.20), transparent 55%),
-      radial-gradient(ellipse at 85% 80%, rgba(255,233,175,0.10), transparent 50%),
-      var(--charcoal);
-    color:var(--cream);
-    padding:90px 24px 70px;
-    position:relative;
-    overflow:hidden;
-  }
-  .hero .wrap{
-    display:grid; grid-template-columns:1.2fr 0.8fr; gap:50px; align-items:center; position:relative; z-index:2;
-  }
-  @media (max-width:860px){.hero .wrap{grid-template-columns:1fr;}}
-  .badge-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px;}
-  .pill{
-    font-family:'Space Mono',monospace; font-size:12px; padding:6px 12px; border-radius:100px;
-    border:1px solid var(--line); color:var(--cream-dim); display:flex; align-items:center; gap:6px;
-  }
-  .pill.open{border-color:#8fae6e; color:#c7dcab;}
-  .pill.rating{border-color:var(--gold); color:var(--gold);}
-  .hero h1{
-    font-size:clamp(48px,7vw,92px); color:var(--cream);
-  }
-  .hero h1 .gold-text{color:var(--gold);}
-  .hero p.lead{
-    font-size:18px; color:var(--cream-dim); max-width:480px; margin:20px 0 30px; line-height:1.5;
-  }
-  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap;}
-  .btn{
-    padding:14px 26px; border-radius:100px; font-weight:700; font-size:15px; display:inline-flex; align-items:center; gap:8px;
-    transition:transform .2s, box-shadow .2s; border:none; cursor:pointer;
-  }
-  .btn-primary{background:var(--gold); color:var(--ink);}
-  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(253,185,43,0.3);}
-  .btn-outline{border:1.5px solid var(--cream-dim); color:var(--cream); background:transparent;}
-  .btn-outline:hover{border-color:var(--gold); color:var(--gold); transform:translateY(-2px);}
-
-  .skewer-art{position:relative; height:380px; display:flex; align-items:center; justify-content:center;}
-  .skewer-art svg{width:100%; height:100%; animation:spin 22s linear infinite;}
-  @keyframes spin{ from{transform:rotate(0deg);} to{transform:rotate(360deg);} }
-  .skewer-core{
-    position:absolute; width:150px; height:150px; border-radius:50%;
-    background:radial-gradient(circle, var(--gold-deep), var(--charcoal) 70%);
-    box-shadow:0 0 60px rgba(253,185,43,0.3);
-  }
-
-  /* ---------- SECTION HEADS ---------- */
-  section{padding:80px 0;}
-  .sec-head{margin-bottom:42px; max-width:640px;}
-  .sec-head h2{font-size:clamp(36px,5vw,56px); color:var(--ink);}
-  .sec-head p{color:var(--ink-soft); font-size:16px; margin-top:10px; line-height:1.5;}
-  .sec-dark{background:var(--charcoal); color:var(--cream);}
-  .sec-dark .sec-head h2{color:var(--cream);}
-  .sec-dark .sec-head p{color:var(--cream-dim);}
-
-  /* ---------- ABOUT strip ---------- */
-  .about-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:16px; overflow:hidden;}
-  @media (max-width:760px){.about-grid{grid-template-columns:repeat(2,1fr);}}
-  .about-cell{background:var(--charcoal-2); padding:26px 20px;}
-  .about-cell .num{font-family:'Bebas Neue'; font-size:38px; color:var(--gold);}
-  .about-cell .lbl{font-size:13px; color:var(--cream-dim); margin-top:4px;}
-
-  /* ---------- MENU ---------- */
-  .menu-tabs{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:34px;}
-  .tab-btn{
-    font-family:'Space Mono',monospace; font-size:13px; text-transform:uppercase; letter-spacing:0.06em;
-    padding:10px 18px; border-radius:100px; border:1.5px solid var(--ink); background:transparent; cursor:pointer;
-    color:var(--ink); transition:background .2s, color .2s;
-  }
-  .tab-btn.active, .tab-btn:hover{background:var(--ink); color:var(--gold-pale);}
-  .menu-cat{display:none;}
-  .menu-cat.active{display:grid; grid-template-columns:repeat(2,1fr); gap:18px;}
-  @media (max-width:760px){.menu-cat.active{grid-template-columns:1fr;}}
-
-  .ticket{
-    background:var(--cream); border:1.5px dashed var(--ink-soft); border-radius:4px;
-    padding:18px 20px; position:relative; display:flex; justify-content:space-between; gap:14px; align-items:flex-start;
-  }
-  .ticket::before, .ticket::after{
-    content:""; position:absolute; width:16px; height:16px; background:var(--cream-dim); border-radius:50%;
-    top:50%; transform:translateY(-50%);
-  }
-  .ticket::before{left:-9px; box-shadow:0 0 0 1.5px var(--ink-soft) inset;}
-  .ticket::after{right:-9px; box-shadow:0 0 0 1.5px var(--ink-soft) inset;}
-  .ticket h4{font-family:'Work Sans'; font-weight:700; font-size:16.5px; margin:0 0 4px;}
-  .ticket p{font-size:13px; color:var(--ink-soft); margin:0; line-height:1.4;}
-  .ticket .price{font-family:'Space Mono',monospace; font-weight:700; font-size:17px; color:var(--gold-deep); white-space:nowrap;}
-  .combo-note{
-    margin-top:26px; padding:16px 20px; border-radius:12px; background:var(--spice); color:var(--cream);
-    font-size:14px; display:flex; gap:10px; align-items:center;
-  }
-
-  /* ---------- GALLERY ---------- */
-  .gal-tabs{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px;}
-  .gallery{display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:140px; gap:10px;}
-  @media (max-width:760px){.gallery{grid-template-columns:repeat(2,1fr); grid-auto-rows:120px;}}
-  .g-item{
-    position:relative; border-radius:10px; overflow:hidden; cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    color:var(--charcoal); transition:transform .3s;
-  }
-  .g-item:hover{transform:scale(1.02);}
-  .g-item svg{width:38%; height:38%; opacity:0.85;}
-  .g-item span{position:absolute; bottom:8px; left:10px; font-size:11px; font-family:'Space Mono'; letter-spacing:0.05em; opacity:0.85; color:var(--cream);}
-  .g-item.tall{grid-row:span 2;}
-  .g-item.wide{grid-column:span 2;}
-  .g-item.hidden-cat{display:none;}
-  .g-menu{background:linear-gradient(135deg,var(--gold),var(--gold-deep)); color:var(--ink);}
-  .g-vibe{background:linear-gradient(135deg,#3a3229,var(--charcoal-3)); color:var(--cream);}
-  .g-owner{background:linear-gradient(135deg,var(--spice),#4a1509); color:var(--cream);}
-  .gallery-note{margin-top:18px; font-size:13px; color:var(--ink-soft); font-family:'Space Mono',monospace;}
-
-  .lightbox{
-    position:fixed; inset:0; background:rgba(10,8,6,0.92); display:none; align-items:center; justify-content:center;
-    z-index:200; padding:24px;
-  }
-  .lightbox.open{display:flex;}
-  .lightbox-inner{
-    max-width:640px; width:100%; background:var(--charcoal-2); border-radius:16px; padding:40px; text-align:center; color:var(--cream);
-    position:relative;
-  }
-  .lightbox-inner svg{width:100px; height:100px; margin:0 auto 18px;}
-  .lightbox-close{position:absolute; top:14px; right:16px; background:none; border:none; color:var(--cream); font-size:26px; cursor:pointer;}
-
-  /* ---------- REVIEWS ---------- */
-  .rev-summary{display:flex; align-items:center; gap:22px; margin-bottom:36px; flex-wrap:wrap;}
-  .rev-score{font-family:'Bebas Neue'; font-size:64px; color:var(--gold);}
-  .stars{color:var(--gold); font-size:18px; letter-spacing:2px;}
-  .rev-count{color:var(--cream-dim); font-size:14px;}
-  .rev-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
-  @media (max-width:900px){.rev-grid{grid-template-columns:1fr;}}
-  .rev-card{background:var(--charcoal-2); border:1px solid var(--line); border-radius:14px; padding:22px; display:flex; flex-direction:column; gap:12px;}
-  .rev-top{display:flex; justify-content:space-between; align-items:flex-start;}
-  .rev-name{font-weight:700; font-size:15px;}
-  .rev-time{font-size:12px; color:var(--cream-dim); font-family:'Space Mono',monospace;}
-  .rev-stars{color:var(--gold); font-size:14px;}
-  .rev-text{font-size:14px; line-height:1.55; color:var(--cream-dim); flex:1;}
-  .rev-actions{display:flex; gap:10px; align-items:center;}
-  .react-btn{
-    display:flex; align-items:center; gap:6px; padding:7px 12px; border-radius:100px; border:1px solid var(--line);
-    background:transparent; color:var(--cream-dim); font-size:13px; cursor:pointer; transition:all .18s;
-  }
-  .react-btn svg{width:15px; height:15px;}
-  .react-btn.like.active{background:#4c6b3f; border-color:#4c6b3f; color:var(--cream);}
-  .react-btn.dislike.active{background:var(--spice); border-color:var(--spice); color:var(--cream);}
-  .react-btn:disabled{cursor:default; opacity:0.55;}
-  .react-btn:not(:disabled):hover{border-color:var(--gold); color:var(--gold);}
-
-  /* ---------- LOCATIONS ---------- */
-  .loc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
-  @media (max-width:980px){.loc-grid{grid-template-columns:1fr 1fr;}}
-  @media (max-width:680px){.loc-grid{grid-template-columns:1fr;}}
-  .loc-card{border:1px solid var(--cream-dim); border-radius:16px; overflow:hidden; background:#fff; display:flex; flex-direction:column;}
-  .loc-map-wrap{position:relative; height:150px; background:var(--cream-dim);}
-  .loc-map-wrap iframe{width:100%; height:100%; border:0; filter:saturate(0.9);}
-  .maps-badge{
-    position:absolute; top:10px; left:10px; background:#fff; border-radius:8px; padding:5px 9px;
-    display:flex; align-items:center; gap:6px; font-size:11px; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.18);
-  }
-  .maps-badge svg{width:16px; height:16px;}
-  .loc-body{padding:18px 20px 20px; flex:1; display:flex; flex-direction:column;}
-  .loc-name{font-family:'Bebas Neue'; font-size:24px; margin-bottom:6px;}
-  .loc-addr{font-size:13.5px; color:var(--ink-soft); margin-bottom:14px; line-height:1.5; flex:1;}
-  .loc-actions{display:flex; gap:8px; flex-wrap:wrap;}
-  .loc-btn{
-    display:flex; align-items:center; gap:6px; font-size:12.5px; font-weight:700; padding:8px 12px; border-radius:100px;
-    border:1.5px solid var(--ink);
-  }
-  .loc-btn svg{width:14px; height:14px;}
-  .loc-btn.primary{background:var(--ink); color:var(--gold-pale);}
-  .loc-btn.primary:hover{background:var(--gold-deep); border-color:var(--gold-deep); color:var(--ink);}
-  .loc-btn:not(.primary):hover{border-color:var(--gold-deep); color:var(--gold-deep);}
-
-  /* ---------- ORDER MODAL ---------- */
-  .order-modal{
-    position:fixed; inset:0; background:rgba(10,8,6,0.6); display:none; align-items:center; justify-content:center;
-    z-index:300; padding:24px;
-  }
-  .order-modal.open{display:flex;}
-  .order-modal-inner{
-    max-width:380px; width:100%; background:var(--cream); border-radius:20px; padding:30px 28px; position:relative;
-  }
-  .order-modal-close{position:absolute; top:12px; right:14px; background:none; border:none; font-size:24px; cursor:pointer; color:var(--ink-soft);}
-  .order-modal h3{font-size:30px; margin-bottom:6px;}
-  .order-modal .sub{font-size:14px; color:var(--ink-soft); margin-bottom:22px;}
-  .order-option{
-    display:flex; align-items:center; gap:14px; width:100%; padding:16px 18px; border-radius:14px; border:1.5px solid var(--cream-dim);
-    background:#fff; margin-bottom:12px; cursor:pointer; transition:border-color .2s, transform .2s; text-align:left;
-  }
-  .order-option:hover{border-color:var(--gold-deep); transform:translateY(-2px);}
-  .order-option .icon-wrap{
-    width:42px; height:42px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0;
-  }
-  .order-option.phone .icon-wrap{background:var(--charcoal); color:var(--gold);}
-  .order-option.wolt .icon-wrap{background:#00c2e8; color:#fff;}
-  .order-option .icon-wrap svg{width:20px; height:20px;}
-  .order-option .opt-title{font-weight:700; font-size:15px;}
-  .order-option .opt-sub{font-size:12.5px; color:var(--ink-soft); margin-top:2px;}
-
-  /* ---------- FOOTER ---------- */
-  footer{background:var(--charcoal); color:var(--cream-dim); padding:50px 0 26px;}
-  .foot-grid{display:grid; grid-template-columns:1.3fr 1fr 1fr; gap:40px; padding-bottom:34px; border-bottom:1px solid var(--line);}
-  @media (max-width:760px){.foot-grid{grid-template-columns:1fr; gap:26px;}}
-  .foot-grid h5{color:var(--cream); font-size:13px; text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px; font-family:'Space Mono',monospace;}
-  .foot-grid p, .foot-grid a{font-size:14px; line-height:1.9; display:block;}
-  .foot-grid a:hover{color:var(--gold);}
-  .foot-bottom{padding-top:22px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:12px; color:var(--ink-soft);}
-  .icon-btn{width:15px;height:15px;}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bera Food — Shaorma & Fast Food Timișoara</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <header class="site">
-  <div class="nav">
-    <div class="logo-mark">
-      <img src="logo.png" alt="Bera Food logo">
-      <span class="logo-text">BERA<span class="dot">•</span>FOOD</span>
+    <div class="nav">
+        <div class="logo-mark">
+            <img src="logo.png" alt="Bera Food Logo">
+            <span class="logo-text">Bera Food<span class="dot">.</span></span>
+        </div>
+        <button class="burger" id="burgerBtn" aria-label="Deschide meniul">☰</button>
+        <nav class="links" id="navLinks">
+            <a href="#meniu">Meniu</a>
+            <a href="#galerie">Galerie</a>
+            <a href="#recenzii">Recenzii</a>
+            <a href="#locatii">Locații</a>
+            <a href="#contact">Contact</a>
+        </nav>
+        <div class="nav-cta">
+            <button class="order-btn" id="openOrderNav">Comandă</button>
+        </div>
     </div>
-    <button class="burger" id="burgerBtn" aria-label="Deschide meniul">☰</button>
-    <nav class="links" id="navLinks">
-      <a href="#meniu">Meniu</a>
-      <a href="#galerie">Galerie</a>
-      <a href="#recenzii">Recenzii</a>
-      <a href="#locatii">Locații</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="nav-cta">
-      <button class="order-btn" id="openOrderNav">
-        <svg class="icon-btn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4M18 2l-1.5 4M3 6h18l-1.5 12.5A2 2 0 0 1 17.5 20h-11a2 2 0 0 1-2-1.5L3 6z"/></svg>
-        Comandă
-      </button>
-    </div>
-  </div>
 </header>
 
 <section class="hero">
-  <div class="wrap">
-    <div>
-      <div class="badge-row">
-        <span class="pill open">● Deschis 24 de ore</span>
-        <span class="pill rating">★ 4.1 · 45 recenzii</span>
-        <span class="pill">20–40 lei / persoană</span>
-      </div>
-      <h1>Shaorma <span class="gold-text">cum trebuie,</span><br>oricând ai chef.</h1>
-      <p class="lead">Bera Food e locul din Timișoara unde shaorma se face din carne proaspătă, la foc, cu lipie caldă și sos bun — non-stop, la livrare sau la pachet.</p>
-      <div class="hero-ctas">
-        <a href="#meniu" class="btn btn-outline">Vezi meniul</a>
-        <button class="btn btn-primary" id="openOrderHero">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4M18 2l-1.5 4M3 6h18l-1.5 12.5A2 2 0 0 1 17.5 20h-11a2 2 0 0 1-2-1.5L3 6z"/></svg>
-          Comandă acum
-        </button>
-      </div>
+    <div class="wrap">
+        <h1>Shaorma adevărată.<br><span class="gold-text">Deschis non-stop.</span></h1>
+        <p class="lead">Bera Food Timișoara — ingrediente proaspete, porții generoase, prețuri corecte. Dine-in, takeaway și livrare fără contact.</p>
+        <div class="hero-ctas">
+            <button class="btn btn-primary" id="openOrderHero">Comandă acum</button>
+        </div>
     </div>
-    <div class="skewer-art">
-      <div class="skewer-core"></div>
-      <svg viewBox="0 0 200 200">
-        <circle cx="100" cy="100" r="92" fill="none" stroke="#ffe9af" stroke-width="1.5" stroke-dasharray="2 10"/>
-        <circle cx="100" cy="8" r="6" fill="#fdb92b"/>
-        <circle cx="184" cy="60" r="4" fill="#ffe9af"/>
-        <circle cx="184" cy="140" r="5" fill="#fdb92b"/>
-        <circle cx="100" cy="192" r="4" fill="#ffe9af"/>
-        <circle cx="16" cy="140" r="5" fill="#fdb92b"/>
-        <circle cx="16" cy="60" r="4" fill="#ffe9af"/>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<section class="sec-dark">
-  <div class="wrap">
-    <div class="about-grid">
-      <div class="about-cell"><div class="num">24/7</div><div class="lbl">Program non-stop, în fiecare zi</div></div>
-      <div class="about-cell"><div class="num">3</div><div class="lbl">Locații: Timișoara și Sânandrei</div></div>
-      <div class="about-cell"><div class="num">4.1★</div><div class="lbl">Rating din 45 de recenzii</div></div>
-      <div class="about-cell"><div class="num">15'</div><div class="lbl">Livrare fără contact, rapid</div></div>
-    </div>
-  </div>
 </section>
 
 <section id="meniu">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Comandă de aici</span>
-      <h2>Meniu &amp; prețuri</h2>
-      <p>Toate prețurile sunt orientative — pot fi actualizate rapid din codul site-ului odată ce ne trimiți meniul final.</p>
+    <div class="wrap">
+        <div class="sec-head">
+            <h2>Meniul nostru</h2>
+            <p>Descoperă cele mai delicioase preparate.</p>
+        </div>
+        <div class="menu-tabs" id="menuTabs">
+            <button class="tab-btn active" data-cat="shaorma">Shaorma</button>
+            <button class="tab-btn" data-cat="burgeri">Burgeri</button>
+            <button class="tab-btn" data-cat="garnituri">Garnituri</button>
+            <button class="tab-btn" data-cat="bauturi">Băuturi</button>
+        </div>
+        <div class="menu-cat active" data-cat="shaorma">
+            <!-- Shaorma items will be populated here -->
+        </div>
+        <div class="menu-cat" data-cat="burgeri">
+            <!-- Burger items will be populated here -->
+        </div>
+        <div class="menu-cat" data-cat="garnituri">
+            <!-- Garnituri items will be populated here -->
+        </div>
+        <div class="menu-cat" data-cat="bauturi">
+            <!-- Băuturi items will be populated here -->
+        </div>
     </div>
-
-    <div class="menu-tabs" id="menuTabs">
-      <button class="tab-btn active" data-cat="shaorma">Shaorma &amp; Kebab</button>
-      <button class="tab-btn" data-cat="burgeri">Burgeri</button>
-      <button class="tab-btn" data-cat="garnituri">Garnituri</button>
-      <button class="tab-btn" data-cat="bauturi">Băuturi</button>
-      <button class="tab-btn" data-cat="meniuri">Meniuri combo</button>
-    </div>
-
-    <div class="menu-cat active" data-cat="shaorma">
-      <div class="ticket"><div><h4>Shaorma pui clasică</h4><p>Lipie, pui marinat, legume, sos la alegere</p></div><div class="price mono">22 lei</div></div>
-      <div class="ticket"><div><h4>Shaorma pui XL</h4><p>Porție dublă de carne, lipie mare</p></div><div class="price mono">28 lei</div></div>
-      <div class="ticket"><div><h4>Shaorma de vită</h4><p>Vită la frigare, ceapă roșie, sos usturoi</p></div><div class="price mono">30 lei</div></div>
-      <div class="ticket"><div><h4>Kebab în lipie</h4><p>Carne mixtă, varză, roșii, sos picant</p></div><div class="price mono">24 lei</div></div>
-      <div class="ticket"><div><h4>Shaorma vegetariană</h4><p>Legume la grătar, brânză, sos de iaurt</p></div><div class="price mono">20 lei</div></div>
-      <div class="ticket"><div><h4>Shaorma în farfurie</h4><p>Fără lipie, cu garnitură de cartofi și salată</p></div><div class="price mono">26 lei</div></div>
-    </div>
-
-    <div class="menu-cat" data-cat="burgeri">
-      <div class="ticket"><div><h4>Cheeseburger Bera</h4><p>Vită, cheddar, murături, sos de casă</p></div><div class="price mono">18 lei</div></div>
-      <div class="ticket"><div><h4>Burger dublu</h4><p>Două straturi de carne, bacon, cheddar</p></div><div class="price mono">26 lei</div></div>
-      <div class="ticket"><div><h4>Burger picant</h4><p>Sos picant de casă, jalapeño, ceapă crocantă</p></div><div class="price mono">24 lei</div></div>
-      <div class="ticket"><div><h4>Chicken burger</h4><p>Piept de pui crocant, salată, sos ranch</p></div><div class="price mono">22 lei</div></div>
-    </div>
-
-    <div class="menu-cat" data-cat="garnituri">
-      <div class="ticket"><div><h4>Cartofi prăjiți</h4><p>Porție clasică, crocanți</p></div><div class="price mono">12 lei</div></div>
-      <div class="ticket"><div><h4>Cartofi cheddar &amp; bacon</h4><p>Cu sos cheddar și bacon crispy</p></div><div class="price mono">18 lei</div></div>
-      <div class="ticket"><div><h4>Inele de ceapă</h4><p>În crustă crocantă, servite cu sos</p></div><div class="price mono">14 lei</div></div>
-      <div class="ticket"><div><h4>Salată de varză</h4><p>Proaspătă, cu morcov și lămâie</p></div><div class="price mono">8 lei</div></div>
-      <div class="ticket"><div><h4>Sos suplimentar</h4><p>Usturoi, picant, ketchup sau maioneză</p></div><div class="price mono">3 lei</div></div>
-    </div>
-
-    <div class="menu-cat" data-cat="bauturi">
-      <div class="ticket"><div><h4>Apă plată / minerală 0.5L</h4><p></p></div><div class="price mono">5 lei</div></div>
-      <div class="ticket"><div><h4>Cola / Fanta / Sprite 0.33L</h4><p></p></div><div class="price mono">8 lei</div></div>
-      <div class="ticket"><div><h4>Suc natural 0.5L</h4><p></p></div><div class="price mono">9 lei</div></div>
-      <div class="ticket"><div><h4>Bere 0.5L</h4><p></p></div><div class="price mono">10 lei</div></div>
-    </div>
-
-    <div class="menu-cat" data-cat="meniuri">
-      <div class="ticket"><div><h4>Meniu Shaorma</h4><p>Shaorma clasică + cartofi + suc</p></div><div class="price mono">32 lei</div></div>
-      <div class="ticket"><div><h4>Meniu Burger</h4><p>Cheeseburger + cartofi + suc</p></div><div class="price mono">30 lei</div></div>
-      <div class="ticket"><div><h4>Meniu Dublu</h4><p>2 shaorma + cartofi mari + 2 sucuri</p></div><div class="price mono">55 lei</div></div>
-    </div>
-
-    <div class="combo-note">🔥 Livrare fără contact disponibilă — comandă prin buton mai sus (telefon sau Wolt).</div>
-  </div>
 </section>
 
-<section class="sec-dark" id="galerie">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Galerie foto</span>
-      <h2>Fotografii &amp; atmosferă</h2>
-      <p>Locurile de mai jos sunt spații pregătite pentru pozele voastre reale — înlocuiește-le ușor cu fotografii din locație, din meniu și cu clienți mulțumiți.</p>
+<section id="galerie">
+    <div class="wrap">
+        <div class="sec-head">
+            <h2>Galerie</h2>
+            <p>Imagini cu preparatele noastre delicioase.</p>
+        </div>
+        <div class="gal-tabs" id="galTabs">
+            <button class="tab-btn active" data-gcat="all">Toate</button>
+            <button class="tab-btn" data-gcat="shaorma">Shaorma</button>
+            <button class="tab-btn" data-gcat="burgeri">Burgeri</button>
+        </div>
+        <div class="gallery" id="gallery">
+            <!-- Gallery items will be populated here -->
+        </div>
     </div>
-
-    <div class="gal-tabs" id="galTabs">
-      <button class="tab-btn active" data-gcat="all" style="border-color:var(--cream); color:var(--cream);">Toate</button>
-      <button class="tab-btn" data-gcat="menu" style="border-color:var(--cream); color:var(--cream);">Meniu</button>
-      <button class="tab-btn" data-gcat="vibe" style="border-color:var(--cream); color:var(--cream);">Vibe</button>
-      <button class="tab-btn" data-gcat="owner" style="border-color:var(--cream); color:var(--cream);">De la proprietar</button>
-    </div>
-
-    <div class="gallery" id="gallery">
-      <div class="g-item g-menu wide" data-gcat="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21V5a2 2 0 0 1 2-2h4l2 2h6a2 2 0 0 1 2 2v3"/><path d="M4 12h16"/><path d="M4 17h10"/></svg><span>MENIU · 01</span></div>
-      <div class="g-item g-vibe tall" data-gcat="vibe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 21h18M5 21V7l8-4v18M13 21V11l6 3v7"/></svg><span>VIBE · 01</span></div>
-      <div class="g-item g-menu" data-gcat="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg><span>MENIU · 02</span></div>
-      <div class="g-item g-owner" data-gcat="owner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 7l5 3 5-6 5 6 5-3-2 13H4z"/></svg><span>PROPRIETAR · 01</span></div>
-      <div class="g-item g-vibe" data-gcat="vibe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg><span>VIBE · 02</span></div>
-      <div class="g-item g-menu tall" data-gcat="menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2v4M16 2v4M3 10h18M5 6h14a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z"/></svg><span>MENIU · 03</span></div>
-      <div class="g-item g-owner wide" data-gcat="owner"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16v16H4z"/><path d="M4 15l4-4 4 4 4-6 4 6"/></svg><span>PROPRIETAR · 02</span></div>
-      <div class="g-item g-vibe" data-gcat="vibe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l1.9 5.8H20l-4.9 3.6 1.9 5.8L12 14.6l-5 3.6 1.9-5.8L4 8.8h6.1z"/></svg><span>VIBE · 03</span></div>
-    </div>
-
-    <p class="gallery-note">/* pentru a adăuga poze reale, înlocuiește elementele .g-item cu &lt;img src="poza-ta.jpg"&gt; — restul (filtrare, lightbox) funcționează automat */</p>
-  </div>
 </section>
-
-<div class="lightbox" id="lightbox">
-  <div class="lightbox-inner">
-    <button class="lightbox-close" id="lightboxClose">×</button>
-    <svg viewBox="0 0 24 24" fill="none" stroke="#fdb92b" stroke-width="1.2"><path d="M3 16l5-5 4 4 5-6 4 5"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
-    <p style="font-size:14px; color:var(--cream-dim);">Spațiu rezervat pentru fotografia ta — încarcă imaginea finală aici.</p>
-  </div>
-</div>
 
 <section id="recenzii">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Ce spun clienții</span>
-      <h2>Recenzii</h2>
+    <div class="wrap">
+        <div class="sec-head">
+            <h2>Recenzii</h2>
+            <p>Ce spun clienții noștri.</p>
+        </div>
+        <div class="rev-grid" id="revGrid">
+            <!-- Review items will be populated here -->
+        </div>
     </div>
-  </div>
-</section>
-
-<section class="sec-dark" style="padding-top:0;">
-  <div class="wrap">
-    <div class="rev-summary">
-      <div class="rev-score">4.1</div>
-      <div>
-        <div class="stars">★★★★☆</div>
-        <div class="rev-count">Bazat pe 45 de recenzii Google</div>
-      </div>
-    </div>
-
-    <div class="rev-grid" id="revGrid">
-      <div class="rev-card">
-        <div class="rev-top">
-          <div><div class="rev-name">Ivan P.</div><div class="rev-stars">★★★★★</div></div>
-          <div class="rev-time">acum 5 luni</div>
-        </div>
-        <div class="rev-text">Personal foarte prietenos și kebab gustos — o alegere bună pentru o masă rapidă la un preț corect.</div>
-        <div class="rev-actions">
-          <button class="react-btn like" data-review="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/></svg><span class="cnt">12</span></button>
-          <button class="react-btn dislike" data-review="1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/></svg><span class="cnt">1</span></button>
-        </div>
-      </div>
-
-      <div class="rev-card">
-        <div class="rev-top">
-          <div><div class="rev-name">Andreea R.</div><div class="rev-stars">★★★★★</div></div>
-          <div class="rev-time">acum 4 luni</div>
-        </div>
-        <div class="rev-text">Cea mai bună shaorma pe care a mâncat-o, comandată prin livrare — a ajuns caldă și rapid.</div>
-        <div class="rev-actions">
-          <button class="react-btn like" data-review="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/></svg><span class="cnt">9</span></button>
-          <button class="react-btn dislike" data-review="2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/></svg><span class="cnt">0</span></button>
-        </div>
-      </div>
-
-      <div class="rev-card">
-        <div class="rev-top">
-          <div><div class="rev-name">Andra Ioana I.</div><div class="rev-stars">★★★★★</div></div>
-          <div class="rev-time">acum 7 luni</div>
-        </div>
-        <div class="rev-text">Personal amabil și rapid, chiar și la ore aglomerate. Recomandă cu încredere pentru o shaorma ca la carte.</div>
-        <div class="rev-actions">
-          <button class="react-btn like" data-review="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z"/></svg><span class="cnt">7</span></button>
-          <button class="react-btn dislike" data-review="3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3H10z"/></svg><span class="cnt">0</span></button>
-        </div>
-      </div>
-    </div>
-    <p style="font-size:12px; color:var(--ink-soft); margin-top:22px; font-family:'Space Mono',monospace;">/* fiecare vizitator poate apăsa o singură dată like sau dislike per recenzie — butonul se blochează după prima apăsare */</p>
-  </div>
 </section>
 
 <section id="locatii">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="eyebrow">Vino pe la noi</span>
-      <h2>Locații</h2>
-      <p>Trei locații — două în Timișoara și una în Sânandrei, deschise non-stop.</p>
+    <div class="wrap">
+        <div class="sec-head">
+            <h2>Locații</h2>
+            <p>Unde ne găsești.</p>
+        </div>
+        <div class="loc-grid">
+            <!-- Location items will be populated here -->
+        </div>
     </div>
-
-    <div class="loc-grid">
-      <div class="loc-card">
-        <div class="loc-map-wrap">
-          <div class="maps-badge">
-            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M12 2C7.6 2 4 5.6 4 10c0 5.4 6.6 11.2 7.3 11.8.4.3.9.3 1.3 0C13.4 21.2 20 15.4 20 10c0-4.4-3.6-8-8-8z"/><circle cx="12" cy="10" r="3.2" fill="#fff"/></svg>
-            Google Maps
-          </div>
-          <iframe loading="lazy" src="https://www.google.com/maps?q=Calea+Sever+Bocu+80,+Timi%C8%99oara&output=embed"></iframe>
-        </div>
-        <div class="loc-body">
-          <div class="loc-name">Sever Bocu</div>
-          <div class="loc-addr">Calea Sever Bocu 80, 300254 Timișoara</div>
-          <div class="loc-actions">
-            <a class="loc-btn primary" href="https://www.google.com/maps/dir/?api=1&destination=Calea+Sever+Bocu+80,+Timi%C8%99oara" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 6.6 11.2 7.3 11.8.4.3.9.3 1.3 0C13.4 21.2 20 15.4 20 10c0-4.4-3.6-8-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-              Maps
-            </a>
-            <button class="loc-btn" onclick="openOrder()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4M18 2l-1.5 4M3 6h18l-1.5 12.5A2 2 0 0 1 17.5 20h-11a2 2 0 0 1-2-1.5L3 6z"/></svg>
-              Comandă
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="loc-card">
-        <div class="loc-map-wrap">
-          <div class="maps-badge">
-            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M12 2C7.6 2 4 5.6 4 10c0 5.4 6.6 11.2 7.3 11.8.4.3.9.3 1.3 0C13.4 21.2 20 15.4 20 10c0-4.4-3.6-8-8-8z"/><circle cx="12" cy="10" r="3.2" fill="#fff"/></svg>
-            Google Maps
-          </div>
-          <iframe loading="lazy" src="https://www.google.com/maps?q=Strada+Coriolan+Brediceanu+6A,+Timi%C8%99oara&output=embed"></iframe>
-        </div>
-        <div class="loc-body">
-          <div class="loc-name">Piața 700</div>
-          <div class="loc-addr">Strada Coriolan Brediceanu 6A, Timișoara</div>
-          <div class="loc-actions">
-            <a class="loc-btn primary" href="https://www.google.com/maps/dir/?api=1&destination=Strada+Coriolan+Brediceanu+6A,+Timi%C8%99oara" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 6.6 11.2 7.3 11.8.4.3.9.3 1.3 0C13.4 21.2 20 15.4 20 10c0-4.4-3.6-8-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-              Maps
-            </a>
-            <button class="loc-btn" onclick="openOrder()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4M18 2l-1.5 4M3 6h18l-1.5 12.5A2 2 0 0 1 17.5 20h-11a2 2 0 0 1-2-1.5L3 6z"/></svg>
-              Comandă
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div class="loc-card">
-        <div class="loc-map-wrap">
-          <div class="maps-badge">
-            <svg viewBox="0 0 24 24"><path fill="#4285F4" d="M12 2C7.6 2 4 5.6 4 10c0 5.4 6.6 11.2 7.3 11.8.4.3.9.3 1.3 0C13.4 21.2 20 15.4 20 10c0-4.4-3.6-8-8-8z"/><circle cx="12" cy="10" r="3.2" fill="#fff"/></svg>
-            Google Maps
-          </div>
-          <iframe loading="lazy" src="https://www.google.com/maps?q=Strada+Tineretului+68,+S%C3%A2nandrei&output=embed"></iframe>
-        </div>
-        <div class="loc-body">
-          <div class="loc-name">Sânandrei</div>
-          <div class="loc-addr">Strada Tineretului 68, Sânandrei, Timiș</div>
-          <div class="loc-actions">
-            <a class="loc-btn primary" href="https://www.google.com/maps/dir/?api=1&destination=Strada+Tineretului+68,+S%C3%A2nandrei" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 6.6 11.2 7.3 11.8.4.3.9.3 1.3 0C13.4 21.2 20 15.4 20 10c0-4.4-3.6-8-8-8z"/><circle cx="12" cy="10" r="3"/></svg>
-              Maps
-            </a>
-            <button class="loc-btn" onclick="openOrder()">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4M18 2l-1.5 4M3 6h18l-1.5 12.5A2 2 0 0 1 17.5 20h-11a2 2 0 0 1-2-1.5L3 6z"/></svg>
-              Comandă
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <footer id="contact">
-  <div class="wrap">
-    <div class="foot-grid">
-      <div>
-        <div class="logo-mark" style="margin-bottom:14px;">
-          <img src="logo.png" alt="Bera Food logo">
-          <span class="logo-text">BERA<span class="dot">•</span>FOOD</span>
+    <div class="wrap">
+        <div class="foot-grid">
+            <div>
+                <h5>Despre noi</h5>
+                <p>Bera Food oferă cele mai bune preparate din Timișoara.</p>
+            </div>
+            <div>
+                <h5>Contact</h5>
+                <p>Email: contact@berafood.ro</p>
+                <p>Telefon: 0727 877 457</p>
+            </div>
+            <div>
+                <h5>Urmărește-ne</h5>
+                <p>Facebook | Instagram</p>
+            </div>
         </div>
-        <p>Shaorma și fast food non-stop, la trei locații: Sever Bocu, Piața 700 și Sânandrei.</p>
-      </div>
-      <div>
-        <h5>Contact</h5>
-        <a href="tel:0727877457">0727 877 457</a>
-        <a href="#locatii">Vezi locațiile</a>
-        <p>Deschis 24 de ore, în fiecare zi</p>
-      </div>
-      <div>
-        <h5>Explorează</h5>
-        <a href="#meniu">Meniu &amp; prețuri</a>
-        <a href="#galerie">Galerie foto</a>
-        <a href="#recenzii">Recenzii</a>
-      </div>
+        <div class="foot-bottom">
+            <p>&copy; 2023 Bera Food. Toate drepturile rezervate.</p>
+        </div>
     </div>
-    <div class="foot-bottom">
-      <span>© 2026 Bera Food. Toate drepturile rezervate.</span>
-      <span>20–40 lei / persoană</span>
-    </div>
-  </div>
 </footer>
 
 <div class="order-modal" id="orderModal">
-  <div class="order-modal-inner">
-    <button class="order-modal-close" id="orderModalClose">×</button>
-    <h3>Comandă</h3>
-    <div class="sub">Alege cum vrei să comanzi</div>
-    <a class="order-option phone" href="tel:0727877457">
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-      <div><div class="opt-title">Sună la restaurant</div><div class="opt-sub">0727 877 457</div></div>
-    </a>
-    <a class="order-option wolt" href="https://wolt.com/en/rou/timisoara/restaurant/bera-food-piata-700-6981dc44c7118e66a6aa3e8d" target="_blank" rel="noopener">
-      <div class="icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2l1.5 4M18 2l-1.5 4M3 6h18l-1.5 12.5A2 2 0 0 1 17.5 20h-11a2 2 0 0 1-2-1.5L3 6z"/></svg></div>
-      <div><div class="opt-title">Comandă pe Wolt</div><div class="opt-sub">Livrare — locația Piața 700</div></div>
-    </a>
-  </div>
+    <div class="order-modal-inner">
+        <button class="order-modal-close" id="orderModalClose">×</button>
+        <h3>Comandă</h3>
+        <div class="sub">Alege cum vrei să comanzi</div>
+        <a class="order-option phone" href="tel:0727877457">
+            <div class="icon-wrap"><svg>...</svg></div>
+            <div class="opt-title">Telefon</div>
+            <div class="opt-sub">Sună pentru a comanda</div>
+        </a>
+        <a class="order-option wolt" href="https://wolt.com/en/rou/timisoara/restaurant/bera-food-piata-700-6981dc44c7118e66a6aa3e8d" target="_blank" rel="noopener">
+            <div class="icon-wrap"><svg>...</svg></div>
+            <div class="opt-title">Wolt</div>
+            <div class="opt-sub">Comandă prin Wolt</div>
+        </a>
+    </div>
 </div>
 
-<script>
-  const burgerBtn = document.getElementById('burgerBtn');
-  const navLinks = document.getElementById('navLinks');
-  burgerBtn.addEventListener('click', () => navLinks.classList.toggle('open'));
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navLinks.classList.remove('open')));
-
-  document.getElementById('menuTabs').addEventListener('click', (e) => {
-    const btn = e.target.closest('.tab-btn');
-    if (!btn) return;
-    document.querySelectorAll('#menuTabs .tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat = btn.dataset.cat;
-    document.querySelectorAll('.menu-cat').forEach(sec => sec.classList.toggle('active', sec.dataset.cat === cat));
-  });
-
-  document.getElementById('galTabs').addEventListener('click', (e) => {
-    const btn = e.target.closest('.tab-btn');
-    if (!btn) return;
-    document.querySelectorAll('#galTabs .tab-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const cat = btn.dataset.gcat;
-    document.querySelectorAll('#gallery .g-item').forEach(item => item.classList.toggle('hidden-cat', cat !== 'all' && item.dataset.gcat !== cat));
-  });
-
-  const lightbox = document.getElementById('lightbox');
-  document.getElementById('gallery').addEventListener('click', (e) => {
-    if (!e.target.closest('.g-item')) return;
-    lightbox.classList.add('open');
-  });
-  document.getElementById('lightboxClose').addEventListener('click', () => lightbox.classList.remove('open'));
-  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
-
-  document.querySelectorAll('.rev-actions').forEach(group => {
-    const buttons = group.querySelectorAll('.react-btn');
-    buttons.forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (btn.disabled) return;
-        const cntEl = btn.querySelector('.cnt');
-        cntEl.textContent = parseInt(cntEl.textContent, 10) + 1;
-        btn.classList.add('active');
-        buttons.forEach(b => b.disabled = true);
-      });
-    });
-  });
-
-  const orderModal = document.getElementById('orderModal');
-  function openOrder(){ orderModal.classList.add('open'); }
-  document.getElementById('openOrderNav').addEventListener('click', openOrder);
-  document.getElementById('openOrderHero').addEventListener('click', openOrder);
-  document.getElementById('orderModalClose').addEventListener('click', () => orderModal.classList.remove('open'));
-  orderModal.addEventListener('click', (e) => { if (e.target === orderModal) orderModal.classList.remove('open'); });
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
