@@ -67,6 +67,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
+  // 2.1. FILTRARE MENIU (PRODUSE / BURGERI)
+  // ==========================================
+  const menuTabs = document.querySelectorAll('.menu-tabs .tab-btn');
+  const menuTickets = document.querySelectorAll('.menu-ticket');
+
+  if (menuTabs.length > 0 && menuTickets.length > 0) {
+    menuTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        menuTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        const category = tab.getAttribute('data-category');
+
+        menuTickets.forEach(ticket => {
+          if (category === 'all' || ticket.classList.contains(category)) {
+            ticket.classList.remove('hidden');
+          } else {
+            ticket.classList.add('hidden');
+          }
+        });
+      });
+    });
+  }
+
+  // ==========================================
   // 3. MENIU MOBIL (BURGER MENU)
   // ==========================================
   const burger = document.querySelector('.burger');
@@ -115,12 +140,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 5. SISTEM VOT RECENZII (FUNCȚIONAL PENTRU STRUCTURA TA)
+  // 5. SISTEM VOT RECENZII
   // ==========================================
   const revCards = document.querySelectorAll('.rev-card');
 
   revCards.forEach((card, index) => {
-    // Detectăm butoanele indiferent de structura lor internă
     const likeBtn = card.querySelector('.like, .react-btn.like');
     const dislikeBtn = card.querySelector('.dislike, .react-btn.dislike');
 
@@ -129,7 +153,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const storageKey = `voted_recenzie_${index}`;
     const savedVote = localStorage.getItem(storageKey);
 
-    // Funcție de blocare fără a afecta stilul vizual
     const lockButtons = (type) => {
       likeBtn.disabled = true;
       dislikeBtn.disabled = true;
@@ -140,20 +163,16 @@ document.addEventListener('DOMContentLoaded', () => {
       if (type === 'dislike') dislikeBtn.classList.add('active');
     };
 
-    // Păstrăm votul la refresh
     if (savedVote) {
       lockButtons(savedVote);
     }
 
-    // Procesăm votul la click
     const processVote = (btn, type) => {
       if (localStorage.getItem(storageKey)) return;
 
-      // Căutăm orice element text/span din interior pentru a crește numărul
       const countSpan = btn.querySelector('.count, span') || btn;
       let currentVal = parseInt(countSpan.textContent.replace(/\D/g, ''), 10) || 0;
       
-      // Actualizăm numărul cu +1
       if (countSpan !== btn) {
         countSpan.textContent = currentVal + 1;
       } else {
@@ -164,7 +183,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // Salvăm în memorie și blocăm o singură dată
       localStorage.setItem(storageKey, type);
       lockButtons(type);
     };
