@@ -108,18 +108,20 @@ header.site {
 .logo-mark {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   color: var(--cream);
 }
 
+/* LOGO MĂRIT AICI (de la 44px la 65px) */
 .logo-mark img {
-  height: 44px;
+  height: 65px;
   width: auto;
+  object-fit: contain;
 }
 
 .logo-mark .logo-text {
   font-family: 'Bebas Neue';
-  font-size: 22px;
+  font-size: 24px;
   letter-spacing: 0.03em;
 }
 
@@ -575,7 +577,7 @@ section {
   gap: 10px;
 }
 
-/* ---------- GALLERY (ACTUALIZATĂ CU IMAGINI REALE) ---------- */
+/* ---------- GALLERY ---------- */
 .gal-tabs {
   display: flex;
   gap: 10px;
