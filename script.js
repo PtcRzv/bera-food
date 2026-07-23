@@ -90,8 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       });
     });
-  }
 
+    // ADaugă linia asta: Activează prima categorie (Shaorma) la prima accesare a paginii
+    menuTabs[0].click();
+  }
   // ==========================================
   // 3. MENIU MOBIL (BURGER MENU)
   // ==========================================
